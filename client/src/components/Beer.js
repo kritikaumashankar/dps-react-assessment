@@ -7,7 +7,11 @@ class Beer extends React.Component{
 
   componentDidMount(){
     const{dispatch,match} = this.props
-    dispatch(getBeerByName(match.params.name))
+    dispatch(getBeerByName(match.params.name))    
+  }
+  componentDidUpdate(prevProps,prevState){
+    if(this.props.location !== prevProps.location)
+      window.location.reload(); 
   }
 
   render(){
@@ -29,16 +33,18 @@ class Beer extends React.Component{
           <Header as="h4"> Available: </Header>
           {beer0.available!==undefined? <p>{beer0.available.name} - {beer0.available.description} </p>: <p></p>}
           <Header as="h4"> Style: </Header>
-          <p>{beer0.style.category.name}</p>
           {beer0.style!==undefined? <p>{beer0.style.category.name}</p>: <p></p>}
           <Header as="h5"> Style Description: </Header>
-          <p>{beer0.style.description}</p>
           {beer0.style!==undefined? <p>{beer0.style.description}</p>: <p></p>}
           <Button onClick={this.props.history.goBack}>Back to Beer List</Button>
         </Container>
       )
     }else{
-      return(<Header as="h1"> No Record</Header>)
+      return(<Container text as={container}>
+        <Header as="h1"> No Record</Header>
+        <Button onClick={this.props.history.goBack}>Back to Beers List</Button>
+
+     </Container>)
     }
     
   }
@@ -53,6 +59,7 @@ const container = styled.div`
 const mapStateToProps = (state) =>{
   return {
     beer: state.beers,
+    search: state.search,
   }
 }
 

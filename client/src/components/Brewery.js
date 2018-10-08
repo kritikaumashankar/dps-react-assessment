@@ -9,7 +9,10 @@ class Brewery extends React.Component{
     const{dispatch,match} = this.props
     dispatch(getBreweryByName(match.params.name))
   }
-
+  componentDidUpdate(prevProps,prevState){
+    if(this.props.location !== prevProps.location)
+      window.location.reload(); 
+  }
   render(){
     const {brewery} = this.props
     let brewery0 = brewery[0]
@@ -54,6 +57,7 @@ const container = styled.div`
 const mapStateToProps = (state) =>{
   return {
     brewery: state.beers,
+    search: state.search,
   }
 }
 

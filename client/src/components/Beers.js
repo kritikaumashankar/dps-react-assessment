@@ -5,6 +5,7 @@ import {getAllBeers} from '../reducers/beers'
 import {Container, Table, Header} from 'semantic-ui-react'
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components'
+import Search from './Search'
 import './style.css'
 
 class Beers extends React.Component{
@@ -40,6 +41,7 @@ class Beers extends React.Component{
     const {beers} =this.props
     if(beers.entries.length !== 0){
       return(
+        
         <Container as={container}>
           <Table celled fixed>
             <Table.Header>
