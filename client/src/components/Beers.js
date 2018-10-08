@@ -1,41 +1,35 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getAllBeers} from '../reducers/beers'
-import {Container, Table, Menu, Icon, Header} from 'semantic-ui-react'
+import {Container, Table, Header} from 'semantic-ui-react'
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components'
+import './style.css'
 
 class Beers extends React.Component{
-  state = { elements:[], offset: 0, perPage: 10, currentPage: 0 }
+  state = { elements:[], offset: 1, perPage: 10 }
 
 
   componentDidMount(){
     const {dispatch} = this.props
-    dispatch(getAllBeers())
+    const {offset, perPage} = this.state
+    dispatch(getAllBeers(offset,perPage))
   }
 
-  setElementsForCurrentPage() {
-    const {beers} =this.props
-    let elements = beers.entries
-                  .slice(this.state.offset, this.state.offset + this.state.perPage)
-                  .map(post =>
-      ( <img src="{post.thumburl}" />)
-    )
-    this.setState({ elements: elements });
-  }
-
-  handlePageClick = (data) => {
-    let selected = data.selected;
-    let offset = Math.ceil(selected * this.state.perPage);
-
-    this.setState({currentPage: selected, offset: offset}, () => {
-      this.setElementsForCurrentPage();
-    })
+  handlePageClick = (elements) => {
+    const {dispatch} = this.props
+    const {offset,perPage} = this.state
+    if(elements.selected == 0 || elements.selected < offset){
+      this.setState({ offset: offset - 1})
+      dispatch(getAllBeers(offset - 1,perPage))
+    }else{
+      this.setState({ offset: offset + 1})
+      dispatch(getAllBeers(offset + 1,perPage))
+    }
   }
 
   render(){
     const {beers} =this.props
-    let paginationElement
     if(beers.length !== 0){
       return(
         <Container as={container}>
@@ -51,41 +45,41 @@ class Beers extends React.Component{
             </Table.Header>
             <Table.Body>
             {
-              beers.entries.slice(this.state.offset, this.state.offset + this.state.perPage).map(beer =>{
+              beers.entries.slice(0, 49).map(beer =>{
                 let shortName =''
                 if(beer.style!==undefined){
                   shortName = beer.style.short_name
                 }
                 return(
                 <Table.Row>
+                   <Link to={`/beers/${beer.name}`}>
                   <Table.Cell>{beer.name_display}</Table.Cell>
                   <Table.Cell>{beer.description}</Table.Cell>
                   <Table.Cell>{beer.is_organic}</Table.Cell>
                   <Table.Cell>{beer.status_display}</Table.Cell>
                   <Table.Cell>{shortName}</Table.Cell>
+                  </Link>
                 </Table.Row>
                 ) 
               })
             }
             </Table.Body>
           </Table>
-                <ReactPaginate 
-                      as={reactli}
-                      previousLabel={"previous"}
-                       nextLabel={"next"}
-                       breakLabel={<a href="">...</a>}
-                       pageCount={5 }
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={3}
-                       forcePage={this.state.currentPage}
-                       onPageChange={this.handlePageClick}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       previousLinkClassName={"previous_page"}
-                       nextLinkClassName={"next_page"}
-                       disabledClassName={"disabled"}
-                       activeClassName={"active"}/>
-          
+          <div id="react-paginate">
+            <ReactPaginate 
+                previousLabel={"previous"}
+                nextLabel={"next"}
+                breakLabel={<a href="">...</a>}
+                pageCount={5}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+                onPageChange={this.handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                previousLinkClassName={"previous_page"}
+                nextLinkClassName={"next_page"}
+                activeClassName={"active"}/>
+          </div>
         </Container>
       )
     }else{
@@ -99,13 +93,8 @@ class Beers extends React.Component{
 
 const container = styled.div`
     margin-top: 100px;
+    background:white;
 `
-const reactli = styled.ul `
-display: inline-block;
-padding-left: 15px;
-padding-right: 15px;
-`
-
 const mapStateToProps = (state) =>{
   return {
     beers: state.beers,

@@ -4,17 +4,17 @@ const ALL_BREWERIES = 'ALL_BREWERIES'
 const GET_BEER_BY_NAME = 'GET_BEER_BY_NAME'
 
 
-export const getAllBeers = () =>{
+export const getAllBeers = (offset,perPage) =>{
   return(dispatch)=> {
-    axios.get(`/api/all_beers?page=5&per_page=10`)
+    axios.get(`/api/all_beers?page=${offset}&per_page=${perPage}`)
       .then( res => dispatch({ type: ALL_BEERS, beers: res.data }) 
     )
   }
 }
 
-export const getAllBreweries = () =>{
+export const getAllBreweries = (offset,perPage) =>{
   return(dispatch)=> {
-    axios.get(`/api/all_breweries`)
+    axios.get(`/api/all_breweries?page=${offset}&per_page=${perPage}`)
       .then( res => dispatch({ type: ALL_BREWERIES, breweries: res.data }) 
     )
   }
