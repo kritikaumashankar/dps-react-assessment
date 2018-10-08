@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom' 
 import {getAllBreweries} from '../reducers/beers'
 import {Container, Grid,Image, Header} from 'semantic-ui-react'
 import ReactPaginate from 'react-paginate';
@@ -13,6 +14,13 @@ class Breweries extends React.Component{
     const {dispatch} = this.props
     const {offset, perPage} = this.state
     dispatch(getAllBreweries(offset,perPage))
+  }
+  componentDidUpdate(prevProps, prevState){
+    const {dispatch} = this.props
+    const {offset, perPage} = this.state
+    if(prevProps.beers.entries.length !== this.props.beers.entries.length){
+      dispatch(getAllBreweries(offset,perPage))
+    }
   }
 
   handlePageClick = (elements) => {
@@ -38,17 +46,15 @@ class Breweries extends React.Component{
                 let icon =""
                 if(b.images !==undefined){
                   icon = b.images.icon
-                  image=b.images.square_large
                 }
                   
                 return(
                   <Grid.Row>
-                    <Link to=``>
                     <Grid.Column>
                       <Image src={icon} />
                     </Grid.Column>
                     <Grid.Column>
-                      <StyledHeader as="h2">{b.name}</StyledHeader>
+                    <Link to={`/breweries/${b.name}`}> <StyledHeader as="h2">{b.name}</StyledHeader></Link>
                     </Grid.Column>
                     <Grid.Column>
                       <StyledHeader as="h2">{b.brand_classification}</StyledHeader>
@@ -56,6 +62,7 @@ class Breweries extends React.Component{
                     <Grid.Column>
                       <StyledHeader as="h2">{b.website}</StyledHeader>
                     </Grid.Column>
+                    
                   </Grid.Row>
                 )
               })
@@ -91,7 +98,7 @@ class Breweries extends React.Component{
 
 const container = styled.div`
   margin-top: 100px;
-  background:pink`
+  background:white`
 
 const StyledHeader = styled.h2`
     font-size:1rem;`

@@ -2,13 +2,14 @@ import axios from 'axios'
 const ALL_BEERS = 'ALL_BEERS'
 const ALL_BREWERIES = 'ALL_BREWERIES'
 const GET_BEER_BY_NAME = 'GET_BEER_BY_NAME'
+const GET_BREWERY_BY_NAME = 'GET_BREWERY_BY_NAME'
 
 
 export const getAllBeers = (offset,perPage) =>{
   return(dispatch)=> {
     axios.get(`/api/all_beers?page=${offset}&per_page=${perPage}`)
-      .then( res => dispatch({ type: ALL_BEERS, beers: res.data }) 
-    )
+      .then( res => {dispatch({ type: ALL_BEERS, beers: res.data }) 
+    })
   }
 }
 
@@ -23,10 +24,19 @@ export const getAllBreweries = (offset,perPage) =>{
 export const getBeerByName = (name) =>{
   return(dispatch)=> {
     axios.get(`/api/beer/${name}`)
-      .then( res => dispatch({ type: GET_BEER_BY_NAME, beer: res.data }) 
+      .then( res => dispatch({ type: GET_BEER_BY_NAME, beer: res.data.entries }) 
     )
   }
 }
+
+export const getBreweryByName = (name) =>{
+  return(dispatch)=> {
+    axios.get(`/api/brewery/${name}`)
+      .then( res => dispatch({ type: GET_BREWERY_BY_NAME, brewery: res.data.entries }) 
+    )
+  }
+}
+
 
 export default (state = [], action ) => {
   switch(action.type) {
@@ -36,6 +46,8 @@ export default (state = [], action ) => {
       return action.breweries
     case GET_BEER_BY_NAME:
       return action.beer
+    case GET_BREWERY_BY_NAME:
+      return action.brewery
     default:
       return state;
   } 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {getAllBeers} from '../reducers/beers'
 import {Container, Table, Header} from 'semantic-ui-react'
 import ReactPaginate from 'react-paginate';
@@ -9,11 +10,18 @@ import './style.css'
 class Beers extends React.Component{
   state = { elements:[], offset: 1, perPage: 10 }
 
-
   componentDidMount(){
     const {dispatch} = this.props
     const {offset, perPage} = this.state
     dispatch(getAllBeers(offset,perPage))
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    const {dispatch} = this.props
+    const {offset, perPage} = this.state
+    if(prevProps.beers.entries.length !== this.props.beers.entries.length){
+      dispatch(getAllBeers(offset,perPage))
+    }
   }
 
   handlePageClick = (elements) => {
@@ -30,7 +38,7 @@ class Beers extends React.Component{
 
   render(){
     const {beers} =this.props
-    if(beers.length !== 0){
+    if(beers.entries.length !== 0){
       return(
         <Container as={container}>
           <Table celled fixed>
@@ -53,12 +61,12 @@ class Beers extends React.Component{
                 return(
                 <Table.Row>
                    <Link to={`/beers/${beer.name}`}>
-                  <Table.Cell>{beer.name_display}</Table.Cell>
+                  <Table.Cell>{beer.name_display}</Table.Cell></Link>
                   <Table.Cell>{beer.description}</Table.Cell>
                   <Table.Cell>{beer.is_organic}</Table.Cell>
                   <Table.Cell>{beer.status_display}</Table.Cell>
                   <Table.Cell>{shortName}</Table.Cell>
-                  </Link>
+                  
                 </Table.Row>
                 ) 
               })
