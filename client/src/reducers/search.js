@@ -3,6 +3,9 @@ export const getInfo = (query) => {
   return(dispatch)=> {
   axios.get(`/api/search_all?query=${query}`)
     .then(res => dispatch({ type: 'ALL_BEERS_BREWERIES', allData: res.data.entries }))
+    .catch(error => {
+      dispatch({type: 'ALL_BEERS_BREWERIES', allData: error.response.data.message })
+  })
   }
 }
 

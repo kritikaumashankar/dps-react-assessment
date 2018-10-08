@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getInfo} from '../reducers/search'
 import Suggestion from './Suggestion'
+import {Input} from 'semantic-ui-react'
 
 class Search extends React.Component {
  state = {
@@ -14,16 +15,16 @@ class Search extends React.Component {
       this.setState({ results: this.props.allData})
  }
 
- handleInputChange = () => {
+ handleInputChange = (e) => {
   this.setState({
-    query: this.search.value
+    query: e.target.value
   }, () => {
     if (this.state.query && this.state.query.length > 1) {
       if (this.state.query.length % 2 === 0) {
         this.props.dispatch(getInfo(this.state.query))
       }
-    }else if(this.state.query.length < 2){
-      this.setState({results: []})
+    } else if(this.state.query && this.state.query.length < 2){
+      this.setState({ results: []})
     }
   })
 }
@@ -32,12 +33,12 @@ class Search extends React.Component {
      const {results,query} = this.state
    return (
      <form>
-       <input
+       <Input
          placeholder="Search for..."
-         ref={input => this.search = input}
+         value={query}
          onChange={this.handleInputChange}
        />
-      <Suggestion results={results} />
+      <Suggestion results={results} query={query}/>
      </form>
    )
  }

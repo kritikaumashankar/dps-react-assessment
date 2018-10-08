@@ -10,7 +10,7 @@ class Brewery extends React.Component{
     dispatch(getBreweryByName(match.params.name))
   }
   componentDidUpdate(prevProps,prevState){
-    if(this.props.location !== prevProps.location)
+    if((this.props.location !== prevProps.location && this.props.search.length !== 0) || (this.props.location == prevProps.location&& prevProps.search.length !== 0))
       window.location.reload(); 
   }
   render(){
