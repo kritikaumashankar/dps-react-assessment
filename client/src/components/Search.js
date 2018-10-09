@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getInfo} from '../reducers/search'
 import Suggestion from './Suggestion'
-import {Input} from 'semantic-ui-react'
+import {Input,Dropdown} from 'semantic-ui-react'
 
 class Search extends React.Component {
  state = {
@@ -37,7 +37,7 @@ class Search extends React.Component {
          placeholder="Search for..."
          value={query}
          onChange={this.handleInputChange}
-       />
+       /> 
       <Suggestion results={results} query={query}/>
      </form>
    )

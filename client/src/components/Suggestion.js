@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import FreeScrollBar from 'react-free-scrollbar';
 
 const Suggestions = (props) => {
   let url =''
@@ -11,13 +12,22 @@ const Suggestions = (props) => {
          url=`/breweries/${r.name}`
 
      return(
-      <Link to={url} key={r.id}><li key={r.id}>
-          {r.type} - {r.name}
-        </li></Link>
+      
+          <Link to={url} key={r.id}><li key={r.id}>
+              {r.type} - {r.name}
+            </li></Link>
+       
      ) 
     }  
   )
-  return <ul>{options}</ul>
+  return (
+    <div style={{width: '300px', height: '100px'}}>
+      <FreeScrollBar>
+        <ul>{options}</ul>
+      </FreeScrollBar>
+    </div>
+  )
+  
   }else if(props.query.length>1){
     return <h4>No Records Found</h4>
   }else

@@ -5701,7 +5701,7 @@ prop-types@^15.5.1, prop-types@^15.5.10, prop-types@^15.5.4:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
-prop-types@^15.6.1:
+prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
@@ -5850,6 +5850,16 @@ react-dom@^15.6.1:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+react-dom@^16.1.1:
+  version "16.5.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.5.2.tgz#b69ee47aa20bab5327b2b9d7c1fe2a30f2cfa9d7"
+  integrity sha512-RC8LDw8feuZOHVgzEf7f+cxBr/DnKdqp56VU0lAs1f4UfKc4cU8wU4fTq/mgnvynLQo8OtlPC19NUFh/zjZPuA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    schedule "^0.5.0"
+
 react-error-overlay@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-1.0.9.tgz#988e48f6f343afa97a719c4ddae51b8fe8ccfee8"
@@ -5861,6 +5871,15 @@ react-error-overlay@^1.0.9:
     react-dev-utils "^3.0.2"
     settle-promise "1.0.0"
     source-map "0.5.6"
+
+react-free-scrollbar@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-free-scrollbar/-/react-free-scrollbar-0.3.2.tgz#102c9181cafbad40ed00548c337965e88d1db0ab"
+  integrity sha512-yUbDhfAD2PK8gn5dPV9QsC0PrVrcj+ElZmfdm9nfPzB44mweHeYq7juV0vCAR9peQmAocUgo5xywk2THmy//vw==
+  dependencies:
+    prop-types "^15.6.0"
+    react "^16.1.1"
+    react-dom "^16.1.1"
 
 react-markdown@^2.5.0:
   version "2.5.0"
@@ -5969,6 +5988,16 @@ react@^15.6.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react@^16.1.1:
+  version "16.5.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
+  integrity sha512-FDCSVd3DjVTmbEAjUNX6FgfAmQ+ypJfHUsqUJOYNCBUp1h8lqmtC+0mXJ+JjsWx4KAVTkk1vKd1hLQPvEviSuw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    schedule "^0.5.0"
 
 read-all-stream@^3.0.0:
   version "3.1.0"
@@ -6374,6 +6403,13 @@ sax@^1.2.1, sax@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+
+schedule@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/schedule/-/schedule-0.5.0.tgz#c128fffa0b402488b08b55ae74bb9df55cc29cc8"
+  integrity sha512-HUcJicG5Ou8xfR//c2rPT0lPIRR09vVvN81T9fqfVgBmhERUbDEQoYKjpBxbueJnCPpSu2ujXzOnRQt6x9o/jw==
+  dependencies:
+    object-assign "^4.1.1"
 
 schema-utils@^0.3.0:
   version "0.3.0"
